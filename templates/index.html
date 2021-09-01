@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO APPLICATION</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+<body>
+    <br>
+    <div style="margin-top: 50px; width: 50%;" class="ui container">
+        <h2 class="ui black center aligned header">TODO APPLICATION</h2>
+
+        <form class="ui form" action="{% url 'add' %}" method="POST">
+        {% csrf_token %}
+            <div class="field">
+                <label for="title">Todo Title</label>
+                <input style="margin-top: 10px;" type="text" id="titlehead" name="titlehead" placeholder="Todo Subject">
+                <br>
+                <button style="margin-top: 10px;" class="ui blue button" type="submit">Add to list</button>
+            </div>
+        </form>
+
+        {% for items in data %} 
+        <form action="/delete/{{items.id}}/" method="POST">
+            {% csrf_token %}
+            <div class="ui segment">
+                <p class="ui big header">{{items.id}} | {{items.content}}</p>
+                <button class="ui red button" type="submit" value="delete">Delete</button>
+            </div>
+        </form>
+
+        {% endfor %}
+    </div>
+</body>
+</html>
